@@ -9,7 +9,7 @@ export const accountSlice = createSlice({
   initialState,
   reducers: {
     increaseBalance: (state, { payload }) => {
-      state.balance += payload;
+      state.balance += parseFloat(payload);
     },
     decreaseBalance: (state, { payload }) => {
       state.balance -= payload;
