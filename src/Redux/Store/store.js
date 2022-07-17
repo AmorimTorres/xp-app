@@ -5,6 +5,6 @@ import accountReducer from '../Slicers/account.slicer';
 export default configureStore({
   reducer: {
     user: userReducer,
-    acount: accountReducer,
+    account: accountReducer,
   },
 });
