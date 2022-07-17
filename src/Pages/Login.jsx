@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { changeEmail, changePassword } from '../Redux/Slicers/user.slicer';
 
 function Login() {
@@ -32,9 +33,11 @@ function Login() {
       <label htmlFor="email">
         <input placeholder="Digite a sua senha" type="password" name="password" onChange={({ target }) => setPassword(target.value)} />
       </label>
-      <button type="button" disabled={ !isButtonDisabled() } aria-label="login-button" onClick={handleClick}>
-        Acessar
-      </button>
+      <Link to='/investimentos'>
+        <button type="button" disabled={ !isButtonDisabled() } aria-label="login-button" onClick={handleClick}>
+          Acessar
+        </button>
+      </Link>
     </div>
   );
 }
