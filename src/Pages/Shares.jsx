@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from '../Components/Header';
+import UserShares from '../Components/UserShares';
 
 function Shares() {
   return (
     <div>
       <Header />
-      <h1> INVESTIMENTOS </h1>
+      <UserShares />
     </div>
   );
 }
