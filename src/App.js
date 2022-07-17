@@ -1,10 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Pages/Login';
 
 function App() {
   return (
-    <div>
-      <h1> OI </h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
