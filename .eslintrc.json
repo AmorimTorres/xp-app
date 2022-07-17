@@ -6,7 +6,8 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "plugin:prettier/recommended"
+        "plugin:prettier/recommended",
+        "plugin:react-hooks/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -17,9 +18,12 @@
     },
     "plugins": [
         "react",
-        "prettier"
+        "prettier",
+        "react-hooks"
     ],
     "rules": {
+        "object-curly-newline": "off",
+        "max-len": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "no-param-reassign": 0,
         "ignorePatterns": 0

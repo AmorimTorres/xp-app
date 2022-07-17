@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   email: '',
+  password: '',
 };
 
 export const userSlice = createSlice({
@@ -11,9 +12,12 @@ export const userSlice = createSlice({
     changeEmail: (state, { payload }) => {
       state.email = payload;
     },
+    changePassword: (state, { payload }) => {
+      state.password = payload;
+    },
   },
 });
 
-export const { changeEmail } = userSlice.actions;
+export const { changeEmail, changePassword } = userSlice.actions;
 
 export default userSlice.reducer;

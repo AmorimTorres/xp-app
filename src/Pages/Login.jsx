@@ -1,20 +1,40 @@
-import React from 'react';
+/* eslint-disable prettier/prettier */
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeEmail, changePassword } from '../Redux/Slicers/user.slicer';
 
 function Login() {
-  /*   const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [disabled, setDisabled] = useState(true); */
+
+  const dispatch = useDispatch();
+
+  const isButtonDisabled = () => {
+    const PASSWORD_LENGTH = 8;
+    const regex = /^\S+@\S+\.\S+$/;
+    return (
+      email !== ''
+        && regex.test(email)
+        && password.length >= PASSWORD_LENGTH
+    );
+  }
+
+  const handleClick = () => {
+    dispatch(changeEmail(email));
+    dispatch(changePassword(password));
+  };
 
   return (
     <div>
       <label htmlFor="email">
-        <input type="text" name="email" />
+        <input placeholder="Digite o seu email" type="text" name="email" onChange={({ target }) => setEmail(target.value)} />
       </label>
-
-      <label htmlFor="password">
-        <input type="text" name="password" />
+      <label htmlFor="email">
+        <input placeholder="Digite a sua senha" type="password" name="password" onChange={({ target }) => setPassword(target.value)} />
       </label>
-      <button type="button" name="login" aria-label="button" />
+      <button type="button" disabled={ !isButtonDisabled() } aria-label="login-button" onClick={handleClick}>
+        Acessar
+      </button>
     </div>
   );
 }
