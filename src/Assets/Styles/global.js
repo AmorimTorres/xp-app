@@ -8,7 +8,7 @@ export default createGlobalStyle`
     font-family: 'Roboto', sans-serif;
 }
 body {
-    background-color:#0d0e10;
+    background-color:#fff;
     font-size: 16px;
 }
 button {

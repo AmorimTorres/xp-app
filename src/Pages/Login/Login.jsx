@@ -31,22 +31,27 @@ function Login() {
 
   return (
     <C.Container>
-      <C.Form>
+      <C.Content>
         <h1>Login</h1>
-      <label htmlFor="email">
-        <input placeholder="Digite o seu email" type="text" name="email" onChange={({ target }) => setEmail(target.value)} />
-      </label>
-      <label htmlFor="email">
-        <input placeholder="Digite a sua senha" type="password" name="password" onChange={({ target }) => setPassword(target.value)} />
-      </label>
-      <Link to='/investimentos'>
-        <button type="button" disabled={ !isButtonDisabled() } aria-label="login-button" onClick={handleClick}>
-          Acessar
-        </button>
-      </Link>
-      </C.Form>
+        <form>
+          <label htmlFor="email">
+            <input placeholder="Digite o seu email" type="text" name="email" onChange={({ target }) => setEmail(target.value)} />
+          </label>
+          <label htmlFor="email">
+            <input placeholder="Digite a sua senha" type="password" name="password" onChange={({ target }) => setPassword(target.value)} />
+          </label>
+          <Link to='/investimentos'>
+            <button type="button" disabled={ !isButtonDisabled() } aria-label="login-button" onClick={handleClick}>
+              Acessar
+            </button>
+          </Link>
+        </form>
+      </C.Content>
       <C.Aside>
         <img src={logo} alt='logo-xp-investimentos' />
+        <h2> Há 20 anos transformando
+o mercado financeiro para melhorar
+a vida das pessoas. </h2>
       </C.Aside>
     </C.Container>
   );
