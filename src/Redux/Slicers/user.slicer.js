@@ -4,6 +4,7 @@ const initialState = {
   email: '',
   password: '',
   shares: [],
+  balance: 500000,
 };
 
 export const userSlice = createSlice({
@@ -19,9 +20,15 @@ export const userSlice = createSlice({
     insertPurchasedShares: (state, { payload }) => {
       state.shares = [...state.shares, payload];
     },
+    increaseBalance: (state, { payload }) => {
+      state.balance += parseFloat(payload);
+    },
+    decreaseBalance: (state, { payload }) => {
+      state.balance -= payload;
+    },
   },
 });
 
-export const { changeEmail, changePassword, insertPurchasedShares } = userSlice.actions;
+export const { changeEmail, changePassword, insertPurchasedShares, increaseBalance, decreaseBalance } = userSlice.actions;
 
 export default userSlice.reducer;
