@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function MarketShares() {
   const getShares = useSelector(({ sharesData }) => sharesData.shares);
@@ -36,9 +37,9 @@ function MarketShares() {
                   </button>
                 </td>
                 <td>
-                  <button type="button" disabled>
-                    Compra
-                  </button>
+                  <Link to={`/trade/${item.ticker}`}>
+                    <button type="button">Compra</button>
+                  </Link>
                 </td>
               </tr>
             ))}

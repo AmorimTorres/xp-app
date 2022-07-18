@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function UserShares() {
   const getUserShares = useSelector(({ user }) => user.shares);
-  console.log(getUserShares);
   return (
     <div>
       <h1> Minhas ações </h1>
@@ -17,7 +17,7 @@ function UserShares() {
           </tr>
         </thead>
         <tbody>
-          {getUserShares === [] ? (
+          {getUserShares &&
             getUserShares.map((item) => (
               <tr key={item.company}>
                 <td>
@@ -36,18 +36,17 @@ function UserShares() {
                   </button>
                 </td>
                 <td>
-                  <button type="button" disabled>
-                    Compra
-                  </button>
+                  <Link to={`./trade/${item.ticker}`}>
+                    <button type="button" disabled>
+                      Compra
+                    </button>
+                  </Link>
                   <button type="button" disabled>
                     Venda
                   </button>
                 </td>
               </tr>
-            ))
-          ) : (
-            <h3>---------</h3>
-          )}
+            ))}
         </tbody>
       </table>
     </div>
