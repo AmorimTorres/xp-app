@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../Components/Header';
+import MarketShares from '../Components/MarketShares';
 import UserShares from '../Components/UserShares';
 
 function Shares() {
@@ -7,6 +8,7 @@ function Shares() {
     <div>
       <Header />
       <UserShares />
+      <MarketShares />
     </div>
   );
 }

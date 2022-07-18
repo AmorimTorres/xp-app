@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-function UserShares() {
-  const getUserShares = useSelector(({ user }) => user.shares);
-  console.log(getUserShares);
+function MarketShares() {
+  const getShares = useSelector(({ sharesData }) => sharesData.shares);
+
   return (
     <div>
-      <h1> Minhas ações </h1>
+      <h1> Disponíveis para Comprar </h1>
       <table>
         <thead>
           <tr>
@@ -17,8 +17,8 @@ function UserShares() {
           </tr>
         </thead>
         <tbody>
-          {getUserShares === [] ? (
-            getUserShares.map((item) => (
+          {getShares &&
+            getShares.map((item) => (
               <tr key={item.company}>
                 <td>
                   <button type="button" disabled>
@@ -39,19 +39,13 @@ function UserShares() {
                   <button type="button" disabled>
                     Compra
                   </button>
-                  <button type="button" disabled>
-                    Venda
-                  </button>
                 </td>
               </tr>
-            ))
-          ) : (
-            <h3>---------</h3>
-          )}
+            ))}
         </tbody>
       </table>
     </div>
   );
 }
 
-export default UserShares;
+export default MarketShares;

@@ -7,6 +7,6 @@ export default configureStore({
   reducer: {
     user: userReducer,
     account: accountReducer,
-    stock: stockReducer,
+    sharesData: stockReducer,
   },
 });
