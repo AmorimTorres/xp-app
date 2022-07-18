@@ -2,7 +2,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { changeEmail, changePassword } from '../Redux/Slicers/user.slicer';
+import { changeEmail, changePassword } from '../../Redux/Slicers/user.slicer';
+
+import * as C from './styles';
+
+import logo from '../../Images/logoXp.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -26,7 +30,8 @@ function Login() {
   };
 
   return (
-    <div>
+    <C.Container>
+      <C.Form>
       <label htmlFor="email">
         <input placeholder="Digite o seu email" type="text" name="email" onChange={({ target }) => setEmail(target.value)} />
       </label>
@@ -38,7 +43,11 @@ function Login() {
           Acessar
         </button>
       </Link>
-    </div>
+      </C.Form>
+      <C.Aside>
+        <img src={logo} alt='logo-xp-investimentos' />
+      </C.Aside>
+    </C.Container>
   );
 }
 

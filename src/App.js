@@ -1,9 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Account from './Pages/Account';
-import Login from './Pages/Login';
+import Login from './Pages/Login/Login';
 import Shares from './Pages/Shares';
 import Trade from './Pages/Trade';
+
+import GlobalStyles from './Assets/Styles/global';
 
 function App() {
   return (
@@ -14,6 +17,7 @@ function App() {
         <Route path="/investimentos" element={<Shares />} />
         <Route path="/trade/:share" element={<Trade />} />
       </Routes>
+      <GlobalStyles />
     </Router>
   );
 }
