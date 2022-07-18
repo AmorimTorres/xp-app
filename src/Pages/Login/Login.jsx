@@ -32,6 +32,7 @@ function Login() {
   return (
     <C.Container>
       <C.Form>
+        <h1>Login</h1>
       <label htmlFor="email">
         <input placeholder="Digite o seu email" type="text" name="email" onChange={({ target }) => setEmail(target.value)} />
       </label>
