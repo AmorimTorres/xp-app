@@ -30,13 +30,15 @@ function Account() {
     <div>
       <Header />
       <h1> Saldo em conta: {balanceInRealBR} </h1>
-      <input type="number" value={inputValue} onChange={({ target }) => setInputValue(target.value)} />
-      <button type="button" aria-label="deposit-button" onClick={depositHandleClick}>
-        Depositar
-      </button>
-      <button disabled={!!disableWithdrawButton} type="button" aria-label="withdraw-button" onClick={withdrawHandleClick}>
-        Retirar
-      </button>
+      <form>
+        <input type="number" value={inputValue} onChange={({ target }) => setInputValue(target.value)} />
+        <button type="button" aria-label="deposit-button" onClick={depositHandleClick}>
+          Depositar
+        </button>
+        <button disabled={!!disableWithdrawButton} type="button" aria-label="withdraw-button" onClick={withdrawHandleClick}>
+          Retirar
+        </button>
+      </form>
     </div>
   );
 }
