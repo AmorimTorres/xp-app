@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Header from '../Components/Header';
+import Header from '../Components/Header/Header';
 import { decreaseBalance, increaseBalance } from '../Redux/Slicers/user.slicer';
 
 function Account() {

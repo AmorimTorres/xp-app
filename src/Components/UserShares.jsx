@@ -36,14 +36,10 @@ function UserShares() {
                   </button>
                 </td>
                 <td>
-                  <Link to={`./trade/${item.ticker}`}>
-                    <button type="button" disabled>
-                      Compra
-                    </button>
+                  <Link to={`/trade/${item.ticker}`}>
+                    <button type="button">Compra</button>
+                    <button type="button">Venda</button>
                   </Link>
-                  <button type="button" disabled>
-                    Venda
-                  </button>
                 </td>
               </tr>
             ))}
