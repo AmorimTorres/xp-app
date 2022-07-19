@@ -18,7 +18,20 @@ export const userSlice = createSlice({
       state.password = payload;
     },
     insertPurchasedShares: (state, { payload }) => {
-      state.shares = [...state.shares, payload];
+      const share = state.shares.find((item) => item.id === payload.id);
+      if (share) {
+        share.quantity += payload.quantity;
+      } else {
+        state.shares.push(payload);
+      }
+    },
+    removePurchasedShares: (state, { payload }) => {
+      const share = state.shares.find((item) => item.id === payload.id);
+      if (share) {
+        share.quantity -= payload.quantity;
+      } else {
+        state.shares.push(payload);
+      }
     },
     increaseBalance: (state, { payload }) => {
       state.balance += parseFloat(payload);
@@ -29,6 +42,8 @@ export const userSlice = createSlice({
   },
 });
 
-export const { changeEmail, changePassword, insertPurchasedShares, increaseBalance, decreaseBalance } = userSlice.actions;
+export const {
+  changeEmail, changePassword, insertPurchasedShares, increaseBalance, decreaseBalance, removePurchasedShares,
+} = userSlice.actions;
 
 export default userSlice.reducer;
