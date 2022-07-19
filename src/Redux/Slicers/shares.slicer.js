@@ -10,10 +10,10 @@ export const shareSlice = createSlice({
   initialState,
   reducers: {
     increaseQuantity: (state, { payload }) => {
-      state.quantity += parseFloat(payload);
+      state.shares[payload.id].quantity += parseFloat(payload.value);
     },
     decreaseQuantity: (state, { payload }) => {
-      state.quantity -= payload;
+      state.shares[payload.id].quantity -= payload.value;
     },
   },
 });

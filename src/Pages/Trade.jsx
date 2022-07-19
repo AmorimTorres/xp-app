@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { decreaseBalance, increaseBalance, insertPurchasedShares } from '../Redux/Slicers/user.slicer';
 import Header from '../Components/Header/Header';
+import { decreaseQuantity, increaseQuantity } from '../Redux/Slicers/shares.slicer';
 
 function Trade() {
   const [buyInputValue, setBuyInputValue] = useState(0);
@@ -37,11 +38,13 @@ function Trade() {
       quantity: buyInputValue,
     };
     dispatch(insertPurchasedShares(buyShareObj));
+    dispatch(decreaseQuantity({ value: buyInputValue, id: getTradeShareInfos[0].id - 1 }));
   };
 
   const sellHandleClick = () => {
     const totalValue = sellInputValue * getTradeShareInfos[0].stockPrice;
     dispatch(increaseBalance(totalValue));
+    dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
   };
 
   return (
