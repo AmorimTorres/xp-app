@@ -29,7 +29,10 @@ function Account() {
   return (
     <div>
       <Header />
-      <h1> Saldo em conta: {balanceInRealBR} </h1>
+      <h1>
+        Saldo em conta:
+        {balanceInRealBR}
+      </h1>
       <form>
         <input type="number" value={inputValue} onChange={({ target }) => setInputValue(target.value)} />
         <button type="button" aria-label="deposit-button" onClick={depositHandleClick}>
