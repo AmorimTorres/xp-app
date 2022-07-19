@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { decreaseBalance, increaseBalance, insertPurchasedShares } from '../Redux/Slicers/user.slicer';
+import {
+  decreaseBalance,
+  increaseBalance,
+  insertPurchasedShares,
+  removePurchasedShares,
+} from '../Redux/Slicers/user.slicer';
 import Header from '../Components/Header/Header';
 import { decreaseQuantity, increaseQuantity } from '../Redux/Slicers/shares.slicer';
 
 function Trade() {
+  const { share } = useParams();
+  const dispatch = useDispatch();
+
   const [buyInputValue, setBuyInputValue] = useState(0);
   const [sellInputValue, setSellInputValue] = useState(0);
 
-  const shares = useSelector(({ sharesData }) => sharesData.shares);
+  const allShares = useSelector(({ sharesData }) => sharesData.shares);
   const portifolioShares = useSelector(({ user }) => user.shares);
   const balance = useSelector(({ user }) => user.balance);
 
@@ -18,24 +26,41 @@ function Trade() {
     currency: 'BRL',
   });
 
-  const { share } = useParams();
+  const getTradeShareInfos = allShares.filter((item) => item.ticker === share);
 
-  const dispatch = useDispatch();
-
-  const getTradeShareInfos = shares.filter((item) => item.ticker === share);
-
-  const checkSharesPostifolio = portifolioShares.map((userShares) => userShares.ticker).some((userShare) => userShare === getTradeShareInfos[0].ticker);
+  const checkSharesPortifolio = portifolioShares
+    .map((userShares) => userShares.ticker)
+    .some((userShare) => userShare === getTradeShareInfos[0].ticker);
 
   const checkBalanceForNewPurchase = buyInputValue * getTradeShareInfos[0].stockPrice > balance;
+
+  const checkPortifolioSharesInvent = () => {
+    const sharesInPortifolio = portifolioShares
+      .filter((item) => item.ticker === share);
+    if (sellInputValue > sharesInPortifolio[0].quantity) {
+      return true;
+    }
+    return false;
+  };
+
+  const checkMarketSharesInvent = () => {
+    const marketShare = allShares
+      .filter((item) => item.ticker === share);
+    if (buyInputValue > marketShare[0].quantity) {
+      return true;
+    }
+    return false;
+  };
 
   const buyHandleClick = () => {
     const totalValue = buyInputValue * getTradeShareInfos[0].stockPrice;
     dispatch(decreaseBalance(totalValue));
     const buyShareObj = {
+      id: getTradeShareInfos[0].id,
       company: getTradeShareInfos[0].company,
       ticker: getTradeShareInfos[0].ticker,
       stockPrice: getTradeShareInfos[0].stockPrice,
-      quantity: buyInputValue,
+      quantity: +buyInputValue,
     };
     dispatch(insertPurchasedShares(buyShareObj));
     dispatch(decreaseQuantity({ value: buyInputValue, id: getTradeShareInfos[0].id - 1 }));
@@ -44,6 +69,14 @@ function Trade() {
   const sellHandleClick = () => {
     const totalValue = sellInputValue * getTradeShareInfos[0].stockPrice;
     dispatch(increaseBalance(totalValue));
+    const sellShareObj = {
+      id: getTradeShareInfos[0].id,
+      company: getTradeShareInfos[0].company,
+      ticker: getTradeShareInfos[0].ticker,
+      stockPrice: getTradeShareInfos[0].stockPrice,
+      quantity: +buyInputValue,
+    };
+    dispatch(removePurchasedShares(sellShareObj));
     dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
   };
 
@@ -59,8 +92,8 @@ function Trade() {
           </tr>
         </thead>
         <tbody>
-          {shares &&
-            shares
+          {allShares
+            && allShares
               .filter((item) => item.ticker === share)
               .map((item) => (
                 <tr key={item.company}>
@@ -84,20 +117,45 @@ function Trade() {
         </tbody>
       </table>
       <form>
-        <button type="button" aria-label="buy-button" disabled={!!checkBalanceForNewPurchase} onClick={buyHandleClick}>
+        <button
+          type="button"
+          aria-label="buy-button"
+          disabled={!!checkBalanceForNewPurchase || checkMarketSharesInvent()}
+          onClick={buyHandleClick}
+        >
           COMPRAR
         </button>
         <label htmlFor="input-quantity">
-          <input type="text" aria-label="buy-input" value={buyInputValue} onChange={({ target }) => setBuyInputValue(target.value)} placeholder="Informe a quantidade que você deseja comprar" />
+          <input
+            type="text"
+            aria-label="buy-input"
+            value={buyInputValue}
+            onChange={({ target }) => setBuyInputValue(target.value)}
+            placeholder="Informe a quantidade que você deseja comprar"
+          />
         </label>
-        <button type="button" aria-label="sell-button" disabled={!checkSharesPostifolio} onClick={sellHandleClick}>
+        <button
+          type="button"
+          aria-label="sell-button"
+          disabled={!checkSharesPortifolio || checkPortifolioSharesInvent()}
+          onClick={sellHandleClick}
+        >
           VENDER
         </button>
         <label htmlFor="input-quantity">
-          <input type="text" aria-label="sell-input" value={sellInputValue} onChange={({ target }) => setSellInputValue(target.value)} placeholder="Informe a quantidade que você deseja vender" />
+          <input
+            type="text"
+            aria-label="sell-input"
+            value={sellInputValue}
+            onChange={({ target }) => setSellInputValue(target.value)}
+            placeholder="Informe a quantidade que você deseja vender"
+          />
         </label>
       </form>
-      <h2> Saldo atual da sua conta: {balanceInRealBR} </h2>
+      <h2>
+        Saldo atual da sua conta:
+        {balanceInRealBR}
+      </h2>
     </div>
   );
 }
