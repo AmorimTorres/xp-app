@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   decreaseBalance,
+  deleteExpense,
   increaseBalance,
   insertPurchasedShares,
   removePurchasedShares,
@@ -77,9 +78,17 @@ function Trade() {
       stockPrice: getTradeShareInfos[0].stockPrice,
       quantity: +sellInputValue,
     };
-    dispatch(removePurchasedShares(sellShareObj));
-    dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
-    setSellInputValue('');
+    const sharesInPortifolio = portifolioShares
+      .filter((item) => item.ticker === share);
+    if (+sellInputValue === +sharesInPortifolio[0].quantity) {
+      dispatch(deleteExpense(sellShareObj));
+      dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
+      setSellInputValue('');
+    } else {
+      dispatch(removePurchasedShares(sellShareObj));
+      dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
+      setSellInputValue('');
+    }
   };
 
   return (
