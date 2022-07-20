@@ -46,7 +46,7 @@ function Trade() {
   const checkMarketSharesInvent = () => {
     const marketShare = allShares
       .filter((item) => item.ticker === share);
-    if (buyInputValue > marketShare[0].quantity) {
+    if (+buyInputValue > +marketShare[0].quantity) {
       return true;
     }
     return false;
@@ -74,7 +74,7 @@ function Trade() {
       company: getTradeShareInfos[0].company,
       ticker: getTradeShareInfos[0].ticker,
       stockPrice: getTradeShareInfos[0].stockPrice,
-      quantity: +buyInputValue,
+      quantity: +sellInputValue,
     };
     dispatch(removePurchasedShares(sellShareObj));
     dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
