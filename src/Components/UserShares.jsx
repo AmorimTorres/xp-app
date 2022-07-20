@@ -17,8 +17,8 @@ function UserShares() {
           </tr>
         </thead>
         <tbody>
-          {getUserShares &&
-            getUserShares.map((item) => (
+          {getUserShares
+            && getUserShares.map((item) => (
               <tr key={item.company}>
                 <td>
                   <button type="button" disabled>
