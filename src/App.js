@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Account from './Pages/Account';
 import Login from './Pages/Login/Login';
-import Shares from './Pages/Shares';
+import Shares from './Pages/Shares/Shares';
 import Trade from './Pages/Trade';
 
 import GlobalStyles from './Assets/Styles/global';

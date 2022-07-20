@@ -64,6 +64,7 @@ function Trade() {
     };
     dispatch(insertPurchasedShares(buyShareObj));
     dispatch(decreaseQuantity({ value: buyInputValue, id: getTradeShareInfos[0].id - 1 }));
+    setBuyInputValue('');
   };
 
   const sellHandleClick = () => {
@@ -78,6 +79,7 @@ function Trade() {
     };
     dispatch(removePurchasedShares(sellShareObj));
     dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
+    setSellInputValue('');
   };
 
   return (
