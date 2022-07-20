@@ -2,13 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import * as C from './styles';
+
 function MarketShares() {
   const getShares = useSelector(({ sharesData }) => sharesData.shares);
 
   return (
-    <div>
+    <C.Container>
       <h1> Disponíveis para Comprar </h1>
-      <table>
+      <C.Table>
         <thead>
           <tr>
             <th>Ações</th>
@@ -22,30 +24,32 @@ function MarketShares() {
             && getShares.map((item) => (
               <tr key={item.company}>
                 <td>
-                  <button type="button" disabled>
+                  <button type="button" disabled className="sticker-button">
                     {item.ticker}
                   </button>
                 </td>
                 <td>
-                  <button type="button" disabled>
+                  <button type="button" disabled className="qtt-value-button">
                     {item.quantity}
                   </button>
                 </td>
                 <td>
-                  <button type="button" disabled>
+                  <button type="button" disabled className="qtt-value-button">
                     {item.stockPrice}
                   </button>
                 </td>
                 <td>
                   <Link to={`/trade/${item.ticker}`}>
-                    <button type="button">Compra</button>
+                    <button type="button" className="buy-button">
+                      Compra
+                    </button>
                   </Link>
                 </td>
               </tr>
             ))}
         </tbody>
-      </table>
-    </div>
+      </C.Table>
+    </C.Container>
   );
 }
 

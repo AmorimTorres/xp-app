@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
-import MarketShares from '../../Components/MarketShares';
+import MarketShares from '../../Components/StockMarket/StockMarket';
 import UserShares from '../../Components/UserShares';
 import * as C from './styles';
 
