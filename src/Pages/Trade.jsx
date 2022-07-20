@@ -9,7 +9,7 @@ import {
   removePurchasedShares,
 } from '../Redux/Slicers/user.slicer';
 import Header from '../Components/Header/Header';
-import { decreaseQuantity, increaseQuantity } from '../Redux/Slicers/shares.slicer';
+import { decreaseMarketShareQtt, increaseMarketShareQtt } from '../Redux/Slicers/shares.slicer';
 
 function Trade() {
   const { share } = useParams();
@@ -64,7 +64,7 @@ function Trade() {
       quantity: +buyInputValue,
     };
     dispatch(insertPurchasedShares(buyShareObj));
-    dispatch(decreaseQuantity({ value: buyInputValue, id: getTradeShareInfos[0].id - 1 }));
+    dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getTradeShareInfos[0].id - 1 }));
     setBuyInputValue('');
   };
 
@@ -82,11 +82,11 @@ function Trade() {
       .filter((item) => item.ticker === share);
     if (+sellInputValue === +sharesInPortifolio[0].quantity) {
       dispatch(deleteExpense(sellShareObj));
-      dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
+      dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
       setSellInputValue('');
     } else {
       dispatch(removePurchasedShares(sellShareObj));
-      dispatch(increaseQuantity({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
+      dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
       setSellInputValue('');
     }
   };

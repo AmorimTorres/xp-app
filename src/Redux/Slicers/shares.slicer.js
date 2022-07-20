@@ -1,23 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-import sharesData from '../../stockData.json';
+import stockDb from '../../stockData.json';
 
 const initialState = {
-  shares: sharesData,
+  shares: stockDb,
 };
 
 export const shareSlice = createSlice({
   name: 'shares',
   initialState,
   reducers: {
-    increaseQuantity: (state, { payload }) => {
+    increaseMarketShareQtt: (state, { payload }) => {
       state.shares[payload.id].quantity += parseFloat(payload.value);
     },
-    decreaseQuantity: (state, { payload }) => {
+    decreaseMarketShareQtt: (state, { payload }) => {
       state.shares[payload.id].quantity -= payload.value;
     },
   },
 });
 
-export const { increaseQuantity, decreaseQuantity } = shareSlice.actions;
+export const { increaseMarketShareQtt, decreaseMarketShareQtt } = shareSlice.actions;
 
 export default shareSlice.reducer;
