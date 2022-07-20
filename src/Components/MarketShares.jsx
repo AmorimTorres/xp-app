@@ -18,8 +18,8 @@ function MarketShares() {
           </tr>
         </thead>
         <tbody>
-          {getShares &&
-            getShares.map((item) => (
+          {getShares
+            && getShares.map((item) => (
               <tr key={item.company}>
                 <td>
                   <button type="button" disabled>

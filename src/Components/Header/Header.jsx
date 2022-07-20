@@ -12,7 +12,10 @@ function Header() {
         <NavLink to="/investimentos">Investimentos</NavLink>
         <NavLink to="/conta">Conta</NavLink>
       </nav>
-      <h3> Usuário: {userEmail} </h3>
+      <h3>
+        Usuário:
+        {userEmail}
+      </h3>
     </Container>
   );
 }
