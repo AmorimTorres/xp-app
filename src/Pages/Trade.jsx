@@ -13,12 +13,12 @@ import { decreaseMarketShareQtt, increaseMarketShareQtt } from '../Redux/Slicers
 
 function Trade() {
   const dispatch = useDispatch();
-  const { selectedShare } = useParams();
+  const { share } = useParams();
 
   const [buyInputValue, setBuyInputValue] = useState(0);
   const [sellInputValue, setSellInputValue] = useState(0);
 
-  const allShares = useSelector(({ sharesData }) => sharesData.shares);
+  const allShares = useSelector(({ stockData }) => stockData.shares);
   const portifolioShares = useSelector(({ user }) => user.shares);
   const balance = useSelector(({ user }) => user.balance);
 
@@ -27,17 +27,17 @@ function Trade() {
     currency: 'BRL',
   });
 
-  const getSelectedShareInfos = allShares.filter((item) => item.ticker === selectedShare);
+  const getSelectedShareInfo = allShares.filter((item) => item.ticker === share);
 
   const checkSharesPortifolio = portifolioShares
     .map((userShares) => userShares.ticker)
-    .some((userShare) => userShare === getSelectedShareInfos[0].ticker);
+    .some((userShare) => userShare === getSelectedShareInfo[0].ticker);
 
-  const checkBalanceForNewPurchase = buyInputValue * getSelectedShareInfos[0].stockPrice > balance;
+  const checkBalanceForNewPurchase = buyInputValue * getSelectedShareInfo[0].stockPrice > balance;
 
   const checkPortifolioSharesInvent = () => {
     const sharesInPortifolio = portifolioShares
-      .filter((item) => item.ticker === selectedShare);
+      .filter((item) => item.ticker === share);
     if (sellInputValue > sharesInPortifolio[0].quantity) {
       return true;
     }
@@ -46,7 +46,7 @@ function Trade() {
 
   const checkMarketSharesInvent = () => {
     const marketShare = allShares
-      .filter((item) => item.ticker === selectedShare);
+      .filter((item) => item.ticker === share);
     if (+buyInputValue > +marketShare[0].quantity) {
       return true;
     }
@@ -54,32 +54,32 @@ function Trade() {
   };
 
   const sharePayload = {
-    id: getSelectedShareInfos[0].id,
-    company: getSelectedShareInfos[0].company,
-    ticker: getSelectedShareInfos[0].ticker,
-    stockPrice: getSelectedShareInfos[0].stockPrice,
+    id: getSelectedShareInfo[0].id,
+    company: getSelectedShareInfo[0].company,
+    ticker: getSelectedShareInfo[0].ticker,
+    stockPrice: getSelectedShareInfo[0].stockPrice,
     quantity: +buyInputValue,
   };
 
   const buyHandleClick = () => {
-    const totalValue = buyInputValue * getSelectedShareInfos[0].stockPrice;
+    const totalValue = buyInputValue * getSelectedShareInfo[0].stockPrice;
     dispatch(decreaseBalance(totalValue));
     dispatch(insertPurchasedShares(sharePayload));
-    dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getSelectedShareInfos[0].id - 1 }));
+    dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getSelectedShareInfo[0].id - 1 }));
     setBuyInputValue('');
   };
 
   const sellHandleClick = () => {
-    const totalValue = sellInputValue * getSelectedShareInfos[0].stockPrice;
+    const totalValue = sellInputValue * getSelectedShareInfo[0].stockPrice;
     dispatch(increaseBalance(totalValue));
     const sharesInPortifolio = portifolioShares
-      .filter((item) => item.ticker === selectedShare);
+      .filter((item) => item.ticker === share);
     if (+sellInputValue === +sharesInPortifolio[0].quantity) {
       dispatch(deleteShare(sharePayload));
     } else {
       dispatch(removePurchasedShares(sharePayload));
     }
-    dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfos[0].id - 1 }));
+    dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
     setSellInputValue('');
   };
 
@@ -97,7 +97,7 @@ function Trade() {
         <tbody>
           {allShares
             && allShares
-              .filter((item) => item.ticker === selectedShare)
+              .filter((item) => item.ticker === share)
               .map((item) => (
                 <tr key={item.company}>
                   <td>

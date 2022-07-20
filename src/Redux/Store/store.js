@@ -5,6 +5,6 @@ import stockReducer from '../Slicers/shares.slicer';
 export default configureStore({
   reducer: {
     user: userReducer,
-    sharesData: stockReducer,
+    stockData: stockReducer,
   },
 });

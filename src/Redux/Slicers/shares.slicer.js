@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import stockDb from '../../stockData.json';
+import stockData from '../../stockData.json';
 
 const initialState = {
-  shares: stockDb,
+  shares: stockData,
 };
 
 export const shareSlice = createSlice({

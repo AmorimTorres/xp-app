@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   background-color: #fff;
   width: 100%;
+  max-width: 1980px;
   height: 100%;
   display: flex;
   flex-direction: column;
