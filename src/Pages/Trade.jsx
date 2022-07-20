@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   decreaseBalance,
-  deleteExpense,
+  deleteShare,
   increaseBalance,
   insertPurchasedShares,
   removePurchasedShares,
@@ -81,7 +81,7 @@ function Trade() {
     const sharesInPortifolio = portifolioShares
       .filter((item) => item.ticker === share);
     if (+sellInputValue === +sharesInPortifolio[0].quantity) {
-      dispatch(deleteExpense(sellShareObj));
+      dispatch(deleteShare(sellShareObj));
       dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getTradeShareInfos[0].id - 1 }));
       setSellInputValue('');
     } else {

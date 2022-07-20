@@ -33,7 +33,7 @@ export const userSlice = createSlice({
         state.shares.push(payload);
       }
     },
-    deleteExpense: (state, { payload }) => {
+    deleteShare: (state, { payload }) => {
       state.shares = state.shares.filter((item) => (!(item.id === payload.id)));
     },
     increaseBalance: (state, { payload }) => {
@@ -47,7 +47,7 @@ export const userSlice = createSlice({
 
 export const {
   changeEmail, changePassword, insertPurchasedShares, increaseBalance, decreaseBalance, removePurchasedShares,
-  deleteExpense,
+  deleteShare,
 } = userSlice.actions;
 
 export default userSlice.reducer;
