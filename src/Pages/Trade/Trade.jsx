@@ -30,18 +30,43 @@ function Trade() {
     currency: 'BRL',
   });
 
+  const toastSuccessId = 'success';
+
+  const notify = (status) => {
+    switch (status) {
+      case 'noBalance':
+        toast.error('Você não tem saldo o suficiente para essa compra', { toastId: toastSuccessId });
+        break;
+      case 'noSharesQttonPortifolio':
+        toast.error('Você não tem essa quantidade de ações na sua carteira');
+        break;
+      case 'noSharesOnMarketQtt':
+        toast.error('Favor verificar a quantidade dessa ação disponível no mercado');
+        break;
+      default:
+        toast('Qualquer dúvida, faça contato com o nosso time de experts');
+    }
+  };
+
   const getSelectedShareInfo = allShares.filter((item) => item.ticker === share);
 
   const checkSharesPortifolio = portifolioShares
-    .map((userShares) => userShares.ticker)
-    .some((userShare) => userShare === getSelectedShareInfo[0].ticker);
+    .map((stockData) => stockData.ticker)
+    .some((item) => item === getSelectedShareInfo[0].ticker);
 
-  const checkBalanceForNewPurchase = buyInputValue * getSelectedShareInfo[0].stockPrice > balance;
+  const checkBalanceForNewPurchase = () => {
+    if (buyInputValue * getSelectedShareInfo[0].stockPrice > balance) {
+      notify('noBalance');
+      return true;
+    }
+    return false;
+  };
 
   const checkPortifolioSharesInvent = () => {
     const sharesInPortifolio = portifolioShares
       .filter((item) => item.ticker === share);
     if (sellInputValue > sharesInPortifolio[0].quantity) {
+      notify('noSharesQttonPortifolio');
       return true;
     }
     return false;
@@ -51,6 +76,7 @@ function Trade() {
     const marketShare = allShares
       .filter((item) => item.ticker === share);
     if (+buyInputValue > +marketShare[0].quantity) {
+      notify('noSharesOnMarketQtt');
       return true;
     }
     return false;
@@ -129,7 +155,7 @@ function Trade() {
           <button
             type="button"
             aria-label="buy-button"
-            disabled={!!checkBalanceForNewPurchase || checkMarketSharesInvent()}
+            disabled={checkBalanceForNewPurchase() || checkMarketSharesInvent()}
             onClick={buyHandleClick}
           >
             COMPRAR
@@ -165,8 +191,8 @@ function Trade() {
           Saldo atual da sua conta:
           {balanceInRealBR}
         </h2>
-        <Toaster />
       </C.Content>
+      <Toaster />
     </C.Container>
   );
 }
