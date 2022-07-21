@@ -19,6 +19,7 @@ export const Content = styled.div`
   table {
     width: 80vh;
     height: 10vh;
+    margin-top: 30px;
 
     th {
       font-size: 20px;
@@ -87,8 +88,8 @@ export const Content = styled.div`
       }
 
       :disabled {
-        background-color: #ffff66;
-        color: #707070;
+        background-color: #fbcf2380;
+        color: #00000040;
         cursor: not-allowed;
       }
     }

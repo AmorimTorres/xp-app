@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
 
   h1 {
-    margin-top: 60px;
+    margin-top: 40px;
     margin-bottom: 30px;
     font-weight: 400;
   }
@@ -31,7 +31,7 @@ export const Content = styled.form`
     height: 40px;
     border-radius: 5px;
     border: #909090;
-    background-color: #606060;
+    background-color: #fbcf23;
     font-size: 20px;
     transition: all 0.2s ease-in;
     margin-top: 5px;
