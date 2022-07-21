@@ -8,9 +8,11 @@ import {
   increaseBalance,
   insertPurchasedShares,
   removePurchasedShares,
-} from '../Redux/Slicers/user.slicer';
-import Header from '../Components/Header/Header';
-import { decreaseMarketShareQtt, increaseMarketShareQtt } from '../Redux/Slicers/shares.slicer';
+} from '../../Redux/Slicers/user.slicer';
+import Header from '../../Components/Header/Header';
+import { decreaseMarketShareQtt, increaseMarketShareQtt } from '../../Redux/Slicers/shares.slicer';
+
+import * as C from './styles';
 
 function Trade() {
   const dispatch = useDispatch();
@@ -87,83 +89,85 @@ function Trade() {
   };
 
   return (
-    <div>
+    <C.Container>
       <Header />
-      <table>
-        <thead>
-          <tr>
-            <th>Ações</th>
-            <th>Quantidade</th>
-            <th>Valor R$</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allShares
+      <C.Content>
+        <table>
+          <thead>
+            <tr>
+              <th>Ações</th>
+              <th>Quantidade</th>
+              <th>Valor R$</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allShares
             && allShares
               .filter((item) => item.ticker === share)
               .map((item) => (
                 <tr key={item.company}>
                   <td>
-                    <button type="button" disabled>
+                    <button type="button" disabled className="ticker-button">
                       {item.ticker}
                     </button>
                   </td>
                   <td>
-                    <button type="button" disabled>
+                    <button type="button" disabled className="qtt-value-button">
                       {item.quantity}
                     </button>
                   </td>
                   <td>
-                    <button type="button" disabled>
+                    <button type="button" disabled className="qtt-value-button">
                       {item.stockPrice}
                     </button>
                   </td>
                 </tr>
               ))}
-        </tbody>
-      </table>
-      <form>
-        <button
-          type="button"
-          aria-label="buy-button"
-          disabled={!!checkBalanceForNewPurchase || checkMarketSharesInvent()}
-          onClick={buyHandleClick}
-        >
-          COMPRAR
-        </button>
-        <label htmlFor="input-quantity">
-          <input
-            type="text"
-            aria-label="buy-input"
-            value={buyInputValue}
-            onChange={({ target }) => setBuyInputValue(target.value)}
-            placeholder="Informe a quantidade que você deseja comprar"
-          />
-        </label>
-        <button
-          type="button"
-          aria-label="sell-button"
-          disabled={!checkSharesPortifolio || checkPortifolioSharesInvent()}
-          onClick={sellHandleClick}
-        >
-          VENDER
-        </button>
-        <label htmlFor="input-quantity">
-          <input
-            type="text"
-            aria-label="sell-input"
-            value={sellInputValue}
-            onChange={({ target }) => setSellInputValue(target.value)}
-            placeholder="Informe a quantidade que você deseja vender"
-          />
-        </label>
-      </form>
-      <h2>
-        Saldo atual da sua conta:
-        {balanceInRealBR}
-      </h2>
-      <Toaster />
-    </div>
+          </tbody>
+        </table>
+        <form>
+          <button
+            type="button"
+            aria-label="buy-button"
+            disabled={!!checkBalanceForNewPurchase || checkMarketSharesInvent()}
+            onClick={buyHandleClick}
+          >
+            COMPRAR
+          </button>
+          <label htmlFor="input-quantity">
+            <input
+              type="text"
+              aria-label="buy-input"
+              value={buyInputValue}
+              onChange={({ target }) => setBuyInputValue(target.value)}
+              placeholder="Informe a quantidade que você deseja comprar"
+            />
+          </label>
+          <button
+            type="button"
+            aria-label="sell-button"
+            disabled={!checkSharesPortifolio || checkPortifolioSharesInvent()}
+            onClick={sellHandleClick}
+          >
+            VENDER
+          </button>
+          <label htmlFor="input-quantity">
+            <input
+              type="text"
+              aria-label="sell-input"
+              value={sellInputValue}
+              onChange={({ target }) => setSellInputValue(target.value)}
+              placeholder="Informe a quantidade que você deseja vender"
+            />
+          </label>
+        </form>
+        <h2>
+          Saldo atual da sua conta:
+          {balanceInRealBR}
+        </h2>
+        <Toaster />
+      </C.Content>
+    </C.Container>
   );
 }
 
