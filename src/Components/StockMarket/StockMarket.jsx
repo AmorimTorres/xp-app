@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import * as C from './styles';
 
 function MarketShares() {
-  const getShares = useSelector(({ sharesData }) => sharesData.shares);
+  const getShares = useSelector(({ stockData }) => stockData.shares);
 
   return (
     <C.Container>
