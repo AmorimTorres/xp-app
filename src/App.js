@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Account from './Pages/Account';
+import Account from './Pages/Account/Account';
 import Login from './Pages/Login/Login';
 import Shares from './Pages/Shares/Shares';
-import Trade from './Pages/Trade';
+import Trade from './Pages/Trade/Trade';
 
 import GlobalStyles from './Assets/Styles/global';
 
