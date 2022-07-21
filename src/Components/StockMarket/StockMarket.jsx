@@ -24,7 +24,7 @@ function MarketShares() {
             && getShares.map((item) => (
               <tr key={item.company}>
                 <td>
-                  <button type="button" disabled className="sticker-button">
+                  <button type="button" disabled className="ticker-button">
                     {item.ticker}
                   </button>
                 </td>

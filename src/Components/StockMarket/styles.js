@@ -8,7 +8,8 @@ export const Container = styled.div`
   align-items: center;
 
   h1 {
-    margin: 100px 30px 30px 30px;
+    margin-top: 60px;
+    margin-bottom: 30px;
     font-weight: 400;
   }
 `;
@@ -34,7 +35,7 @@ export const Table = styled.table`
         font-weight: bold;
     }
 
-    .sticker-button {
+    .ticker-button {
         background-color: #fbcf23;
         color: #191919;
 
