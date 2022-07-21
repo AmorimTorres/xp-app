@@ -30,18 +30,15 @@ function Trade() {
     currency: 'BRL',
   });
 
-  const toastSuccessId = 'success';
-
   const notify = (status) => {
     switch (status) {
-      case 'noBalance':
-        toast.error('Você não tem saldo o suficiente para essa compra', { toastId: toastSuccessId });
+      case 'error':
+        toast.error(`Erro:
+        1 - Verifique o saldo da sua conta
+        2 - Verifique a quantidade de ações diponíveis no mercado`);
         break;
       case 'noSharesQttonPortifolio':
         toast.error('Você não tem essa quantidade de ações na sua carteira');
-        break;
-      case 'noSharesOnMarketQtt':
-        toast.error('Favor verificar a quantidade dessa ação disponível no mercado');
         break;
       default:
         toast('Qualquer dúvida, faça contato com o nosso time de experts');
@@ -54,34 +51,6 @@ function Trade() {
     .map((stockData) => stockData.ticker)
     .some((item) => item === getSelectedShareInfo[0].ticker);
 
-  const checkBalanceForNewPurchase = () => {
-    if (buyInputValue * getSelectedShareInfo[0].stockPrice > balance) {
-      notify('noBalance');
-      return true;
-    }
-    return false;
-  };
-
-  const checkPortifolioSharesInvent = () => {
-    const sharesInPortifolio = portifolioShares
-      .filter((item) => item.ticker === share);
-    if (sellInputValue > sharesInPortifolio[0].quantity) {
-      notify('noSharesQttonPortifolio');
-      return true;
-    }
-    return false;
-  };
-
-  const checkMarketSharesInvent = () => {
-    const marketShare = allShares
-      .filter((item) => item.ticker === share);
-    if (+buyInputValue > +marketShare[0].quantity) {
-      notify('noSharesOnMarketQtt');
-      return true;
-    }
-    return false;
-  };
-
   const sharePayload = {
     id: getSelectedShareInfo[0].id,
     company: getSelectedShareInfo[0].company,
@@ -91,27 +60,37 @@ function Trade() {
   };
 
   const buyHandleClick = () => {
-    const totalValue = buyInputValue * getSelectedShareInfo[0].stockPrice;
-    dispatch(decreaseBalance(totalValue));
-    dispatch(insertPurchasedShares(sharePayload));
-    dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getSelectedShareInfo[0].id - 1 }));
-    setBuyInputValue('');
-    toast.success('Compra feita com sucesso');
+    const marketShare = allShares.filter((item) => item.ticker === share);
+    const totalBuyValue = buyInputValue * getSelectedShareInfo[0].stockPrice;
+    if (balance < totalBuyValue || +buyInputValue > +marketShare[0].quantity) {
+      notify('error');
+    } else {
+      dispatch(decreaseBalance(totalBuyValue));
+      dispatch(insertPurchasedShares(sharePayload));
+      dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getSelectedShareInfo[0].id - 1 }));
+      setBuyInputValue('');
+      toast.success('Compra feita com sucesso');
+    }
   };
 
   const sellHandleClick = () => {
     const totalValue = sellInputValue * getSelectedShareInfo[0].stockPrice;
-    dispatch(increaseBalance(totalValue));
-    const sharesInPortifolio = portifolioShares
-      .filter((item) => item.ticker === share);
-    if (+sellInputValue === +sharesInPortifolio[0].quantity) {
+    const sharesInPortifolio = portifolioShares.filter((item) => item.ticker === share);
+    if (sellInputValue > sharesInPortifolio[0].quantity) {
+      notify('noSharesQttonPortifolio');
+    } if (+sellInputValue === +sharesInPortifolio[0].quantity) {
       dispatch(deleteShare(sharePayload));
+      dispatch(increaseBalance(totalValue));
+      dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
+      setSellInputValue('');
+      toast.success('Venda feita com sucesso');
     } else {
       dispatch(removePurchasedShares(sharePayload));
+      dispatch(increaseBalance(totalValue));
+      dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
+      setSellInputValue('');
+      toast.success('Venda feita com sucesso');
     }
-    dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
-    setSellInputValue('');
-    toast.success('Venda feita com sucesso');
   };
 
   return (
@@ -155,7 +134,6 @@ function Trade() {
           <button
             type="button"
             aria-label="buy-button"
-            disabled={checkBalanceForNewPurchase() || checkMarketSharesInvent()}
             onClick={buyHandleClick}
           >
             COMPRAR
@@ -172,7 +150,7 @@ function Trade() {
           <button
             type="button"
             aria-label="sell-button"
-            disabled={!checkSharesPortifolio || checkPortifolioSharesInvent()}
+            disabled={!checkSharesPortifolio}
             onClick={sellHandleClick}
           >
             VENDER
