@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   decreaseBalance,
   deleteShare,
@@ -67,6 +68,7 @@ function Trade() {
     dispatch(insertPurchasedShares(sharePayload));
     dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getSelectedShareInfo[0].id - 1 }));
     setBuyInputValue('');
+    toast.success('Compra feita com sucesso');
   };
 
   const sellHandleClick = () => {
@@ -81,6 +83,7 @@ function Trade() {
     }
     dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
     setSellInputValue('');
+    toast.success('Venda feita com sucesso');
   };
 
   return (
@@ -159,6 +162,7 @@ function Trade() {
         Saldo atual da sua conta:
         {balanceInRealBR}
       </h2>
+      <Toaster />
     </div>
   );
 }
