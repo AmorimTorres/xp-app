@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   max-width: 1980px;
   height: 100vh;
   display: flex;
@@ -93,12 +93,15 @@ export const Content = styled.div`
 `;
 
 export const Aside = styled.div`
+  width: 100%;
   height: 100%;
   background-color: #0d0e10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   img {
     margin-top: 130px;
-    margin-left: 180px;
   }
 
   h2 {
