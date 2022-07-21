@@ -40,10 +40,7 @@ export const Content = styled.div`
       .ticker-button {
         background-color: #fbcf23;
         color: #191919;
-
-        :hover {
-          background-color: #f0c405;
-        }
+        cursor: default;
       }
 
       .qtt-value-button {
