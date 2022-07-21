@@ -4,62 +4,62 @@
     "company": "Itaú Unibanco",
     "ticker": "ITUB4",
     "stockPrice": "22.55",
-    "quantity": "1000"
+    "quantity": "10000"
   },
   {
     "id": 2,
     "company": "XP Inc",
     "ticker": "XPBR31",
     "stockPrice": "94.31",
-    "quantity": "1000"
+    "quantity": "10000"
   },
   {
     "id": 3,
     "company": "Banco Bradesco SA",
     "ticker": "BBDC4",
     "stockPrice": "16.44",
-    "quantity": "1000"
+    "quantity": "10000"
   },
   {
     "id": 4,
     "company": "Vale S.A.",
     "ticker": "VALE3",
     "stockPrice": "68.37",
-    "quantity": "1000"
+    "quantity": "10000"
   },
   {
     "id": 5,
     "company": "Petrobras",
     "ticker": "PETR4",
     "stockPrice": "27.96",
-    "quantity": "1000"
+    "quantity": "10000"
   },
   {
     "id": 6,
     "company": "Ambev",
     "ticker": "ABEV3",
     "stockPrice": "14.59",
-    "quantity": "1000"
+    "quantity": "10000"
   },
   {
     "id": 7,
     "company": "B3 SA",
     "ticker": "B3SA3",
     "stockPrice": "10.03",
-    "quantity": "1000"
+    "quantity": "10000"
   },
   {
     "id": 8,
     "company": "CEMIG",
     "ticker": "CMIG4",
     "stockPrice": "10.45",
-    "quantity": "1000"
+    "quantity": "10000"
   },
   {
     "id": 9,
     "company": "Magazine Luiza",
     "ticker": "MGLU3",
     "stockPrice": "2.79",
-    "quantity": "1000"
+    "quantity": "10000"
   }
 ]
