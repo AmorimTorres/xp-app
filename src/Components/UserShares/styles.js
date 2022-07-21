@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
-  height: 30vh;
+  height: 55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow:hidden;
+  height:1%;
 
   h1 {
     margin: 30px;
@@ -15,7 +17,8 @@ export const Container = styled.div`
 
 export const Table = styled.table`
   width: 80vh;
-  height: 40vh;
+  overflow:hidden;
+  height:1%;
 
   th {
     font-size: 20px;
@@ -30,11 +33,12 @@ export const Table = styled.table`
         border: none;
         border-radius: 3px;
         box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
-        margin: 5px;
+        margin: 2px;
         font-weight: bold;
+        margin-bottom: 8px;
     }
 
-    .sticker-button {
+    .ticker-button {
         background-color: #fbcf23;
         color: #191919;
 
@@ -49,9 +53,10 @@ export const Table = styled.table`
         cursor: default;
     }
     
-    .buy-button {
+    .sell-buy-button {
         background-color: #707070;
         color: white;
+        width: 38px;
 
     :hover {
         background-color: #606060;

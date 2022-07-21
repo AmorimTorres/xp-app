@@ -23,24 +23,24 @@ function UserShares() {
             && getUserShares.map((item) => (
               <tr key={item.company}>
                 <td>
-                  <button type="button" disabled>
+                  <button type="button" disabled className="ticker-button">
                     {item.ticker}
                   </button>
                 </td>
                 <td>
-                  <button type="button" disabled>
+                  <button type="button" disabled className="qtt-value-button">
                     {item.quantity}
                   </button>
                 </td>
                 <td>
-                  <button type="button" disabled>
+                  <button type="button" disabled className="qtt-value-button">
                     {item.stockPrice}
                   </button>
                 </td>
                 <td>
                   <Link to={`/trade/${item.ticker}`}>
-                    <button type="button">Compra</button>
-                    <button type="button">Venda</button>
+                    <button type="button" className="sell-buy-button">C</button>
+                    <button type="button" className="sell-buy-button">V</button>
                   </Link>
                 </td>
               </tr>
