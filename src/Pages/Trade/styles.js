@@ -91,7 +91,7 @@ export const Content = styled.div`
 
       :disabled {
         background-color: #ffff66;
-        color: #191919;
+        color: #707070;
         cursor: not-allowed;
       }
     }

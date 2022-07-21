@@ -140,7 +140,7 @@ function Trade() {
               aria-label="buy-input"
               value={buyInputValue}
               onChange={({ target }) => setBuyInputValue(target.value)}
-              placeholder="Informe a quantidade que você deseja comprar"
+              placeholder="Informe a quantidade"
             />
           </label>
           <button
@@ -157,7 +157,7 @@ function Trade() {
               aria-label="sell-input"
               value={sellInputValue}
               onChange={({ target }) => setSellInputValue(target.value)}
-              placeholder="Informe a quantidade que você deseja vender"
+              placeholder="Informe a quantidade"
             />
           </label>
         </form>
