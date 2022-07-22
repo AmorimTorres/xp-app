@@ -54,8 +54,8 @@ function Trade() {
     }
   };
 
-  const checkBuyInputValue = buyInputValue === 0 || buyInputValue === '';
-  const checkSellInputValue = sellInputValue === 0 || sellInputValue === '';
+  const checkBuyInputValue = +buyInputValue === 0 || buyInputValue === '';
+  const checkSellInputValue = +sellInputValue === 0 || sellInputValue === '';
 
   const checkSharesPortifolio = portifolioShares
     .map((stockData) => stockData.ticker)

@@ -7,7 +7,7 @@ import * as C from './styles';
 
 function Account() {
   const balance = useSelector(({ user }) => user.balance);
-  const [inputValue, setInputValue] = useState(0);
+  const [inputValue, setInputValue] = useState('');
 
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ function Account() {
     setInputValue('');
   };
 
-  const checkInputValue = inputValue === 0 || inputValue === '';
+  const checkInputValue = +inputValue === 0 || inputValue === '';
   const disableWithdrawButton = balance <= 0 || inputValue > balance;
 
   const balanceInRealBR = balance.toLocaleString('pt-br', {
@@ -38,11 +38,11 @@ function Account() {
       </h1>
       <C.Content>
         <label htmlFor="balance-movements">
-          Insira o valor de depósito ou retirada:
           <input
             type="number"
             value={inputValue}
             onChange={({ target }) => setInputValue(target.value)}
+            placeholder="Insira um valor"
           />
         </label>
         <button
