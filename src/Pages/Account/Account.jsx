@@ -33,8 +33,7 @@ function Account() {
     <C.Container>
       <Header />
       <h1>
-        Saldo em conta:
-        {balanceInRealBR}
+        {`Saldo em conta: ${balanceInRealBR}`}
       </h1>
       <C.Content>
         <label htmlFor="balance-movements">
