@@ -38,10 +38,16 @@ function Trade() {
         toast.error('Verifique o saldo da sua conta');
         break;
       case 'error2':
-        toast.error(`Verifique a quantidade da ação ${share} disponível no mercado`);
+        toast.error(`Verifique a quantidade de açõe ${share} disponíveis no mercado`);
         break;
       case 'noSharesQttonPortifolio':
-        toast.error(`Verifique a quantidade da ação ${share} disponível na sua carteira`);
+        toast.error(`Verifique a quantidade de ações ${share} disponíveis na sua carteira`);
+        break;
+      case 'sellSuccess':
+        toast.success('Venda realizada com sucesso');
+        break;
+      case 'buySuccess':
+        toast.success('Compra realizada com sucesso');
         break;
       default:
         toast('Qualquer dúvida, faça contato com o nosso time de experts');
@@ -72,7 +78,7 @@ function Trade() {
       dispatch(insertPurchasedShares(sharePayload));
       dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getSelectedShareInfo[0].id - 1 }));
       setBuyInputValue('');
-      toast.success('Compra feita com sucesso');
+      notify('buySuccess');
     }
   };
 
@@ -86,13 +92,13 @@ function Trade() {
       dispatch(increaseBalance(totalValue));
       dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
       setSellInputValue('');
-      toast.success('Venda feita com sucesso');
+      notify('sellSuccess');
     } else {
       dispatch(removePurchasedShares(sharePayload));
       dispatch(increaseBalance(totalValue));
       dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
       setSellInputValue('');
-      toast.success('Venda feita com sucesso');
+      notify('sellSuccess');
     }
   };
 
@@ -173,7 +179,32 @@ function Trade() {
           {balanceInRealBR}
         </h2>
       </C.Content>
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          success: {
+            style: {
+              background: '#058700',
+              color: '#fff',
+              fontWeight: 'bold',
+              border: '1px solid #fff',
+              transition: 'all 0.2s',
+              width: '20rem',
+              padding: '0.7rem',
+            },
+          },
+          error: {
+            style: {
+              background: '#ff0000',
+              color: '#fff',
+              fontWeight: 'bold',
+              border: '1px solid #fff',
+              transition: 'all 0.2s',
+              width: '20rem',
+              padding: '0.7rem',
+            },
+          },
+        }}
+      />
     </C.Container>
   );
 }
