@@ -44,10 +44,10 @@ function Trade() {
         toast.error(`Verifique a quantidade de ações ${share} disponíveis na sua carteira`);
         break;
       case 'sellSuccess':
-        toast.success('Venda realizada com sucesso');
+        toast.success(`Venda de ${sellInputValue} ações ${share} realizada com sucesso`);
         break;
       case 'buySuccess':
-        toast.success('Compra realizada com sucesso');
+        toast.success(`Compra de ${buyInputValue} ações ${share} realizada com sucesso`);
         break;
       default:
         toast('Qualquer dúvida, faça contato com o nosso time de experts');
