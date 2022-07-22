@@ -30,22 +30,23 @@ function Trade() {
     currency: 'BRL',
   });
 
+  const getSelectedShareInfo = allShares.filter((item) => item.ticker === share);
+
   const notify = (status) => {
     switch (status) {
       case 'error':
-        toast.error(`Erro:
-        1 - Verifique o saldo da sua conta
-        2 - Verifique a quantidade de ações diponíveis no mercado`);
+        toast.error('Verifique o saldo da sua conta');
+        break;
+      case 'error2':
+        toast.error(`Verifique a quantidade da ação ${share} disponível no mercado`);
         break;
       case 'noSharesQttonPortifolio':
-        toast.error('Você não tem essa quantidade de ações na sua carteira');
+        toast.error(`Verifique a quantidade da ação ${share} disponível na sua carteira`);
         break;
       default:
         toast('Qualquer dúvida, faça contato com o nosso time de experts');
     }
   };
-
-  const getSelectedShareInfo = allShares.filter((item) => item.ticker === share);
 
   const checkSharesPortifolio = portifolioShares
     .map((stockData) => stockData.ticker)
@@ -62,8 +63,10 @@ function Trade() {
   const buyHandleClick = () => {
     const marketShare = allShares.filter((item) => item.ticker === share);
     const totalBuyValue = buyInputValue * getSelectedShareInfo[0].stockPrice;
-    if (balance < totalBuyValue || +buyInputValue > +marketShare[0].quantity) {
+    if (balance < totalBuyValue) {
       notify('error');
+    } else if (+buyInputValue > +marketShare[0].quantity) {
+      notify('error2');
     } else {
       dispatch(decreaseBalance(totalBuyValue));
       dispatch(insertPurchasedShares(sharePayload));
@@ -78,7 +81,7 @@ function Trade() {
     const sharesInPortifolio = portifolioShares.filter((item) => item.ticker === share);
     if (sellInputValue > sharesInPortifolio[0].quantity) {
       notify('noSharesQttonPortifolio');
-    } if (+sellInputValue === +sharesInPortifolio[0].quantity) {
+    } else if (+sellInputValue === +sharesInPortifolio[0].quantity) {
       dispatch(deleteShare(sharePayload));
       dispatch(increaseBalance(totalValue));
       dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
