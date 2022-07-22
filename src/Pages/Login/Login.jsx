@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { changeEmail } from '../../Redux/Slicers/user.slicer';
@@ -8,10 +8,21 @@ import * as C from './styles';
 import logo from '../../Images/logoXp.png';
 
 function Login() {
+  const date = new Date().toLocaleString();
+
+  // const dateBR = date.toLocaleDateString();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const user = localStorage.getItem('User');
+    if (user) {
+      setEmail(user);
+    }
+  }, []);
 
   const isButtonDisabled = () => {
     const PASSWORD_LENGTH = 8;
@@ -25,6 +36,8 @@ function Login() {
 
   const handleClick = () => {
     dispatch(changeEmail(email));
+    localStorage.setItem('DateAndHour', date);
+    localStorage.setItem('User', email);
   };
 
   return (
@@ -38,6 +51,7 @@ function Login() {
               type="text"
               aria-label="email"
               onChange={({ target }) => setEmail(target.value)}
+              value={email}
             />
           </label>
           <label htmlFor="email">
