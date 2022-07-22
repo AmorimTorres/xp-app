@@ -54,6 +54,9 @@ function Trade() {
     }
   };
 
+  const checkBuyInputValue = buyInputValue === 0 || buyInputValue === '';
+  const checkSellInputValue = sellInputValue === 0 || sellInputValue === '';
+
   const checkSharesPortifolio = portifolioShares
     .map((stockData) => stockData.ticker)
     .some((item) => item === getSelectedShareInfo[0].ticker);
@@ -144,6 +147,7 @@ function Trade() {
             type="button"
             aria-label="buy-button"
             onClick={buyHandleClick}
+            disabled={checkBuyInputValue}
           >
             COMPRAR
           </button>
@@ -159,7 +163,7 @@ function Trade() {
           <button
             type="button"
             aria-label="sell-button"
-            disabled={!checkSharesPortifolio}
+            disabled={!checkSharesPortifolio || checkSellInputValue}
             onClick={sellHandleClick}
           >
             VENDER
