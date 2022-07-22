@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   email: '',
-  password: '',
   shares: [],
   balance: 500000,
 };
@@ -13,9 +12,6 @@ export const userSlice = createSlice({
   reducers: {
     changeEmail: (state, { payload }) => {
       state.email = payload;
-    },
-    changePassword: (state, { payload }) => {
-      state.password = payload;
     },
     insertPurchasedShares: (state, { payload }) => {
       const share = state.shares.find((item) => item.id === payload.id);
@@ -46,8 +42,7 @@ export const userSlice = createSlice({
 });
 
 export const {
-  changeEmail, changePassword, insertPurchasedShares, increaseBalance, decreaseBalance, removePurchasedShares,
-  deleteShare,
+  changeEmail, insertPurchasedShares, increaseBalance, decreaseBalance, removePurchasedShares, deleteShare,
 } = userSlice.actions;
 
 export default userSlice.reducer;

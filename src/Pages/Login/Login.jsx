@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { changeEmail, changePassword } from '../../Redux/Slicers/user.slicer';
+import { changeEmail } from '../../Redux/Slicers/user.slicer';
 
 import * as C from './styles';
 
@@ -25,7 +25,6 @@ function Login() {
 
   const handleClick = () => {
     dispatch(changeEmail(email));
-    dispatch(changePassword(password));
   };
 
   return (
