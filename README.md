@@ -73,4 +73,4 @@ http://localhost:3000/
 ## Autor
 * André Amorim Torres
 * E-mail: amorimtorresandre@gmail.com
-* Linkedin: [https://www.linkedin.com/in/andreamorimtorres/]
+* Linkedin: https://www.linkedin.com/in/andreamorimtorres/
