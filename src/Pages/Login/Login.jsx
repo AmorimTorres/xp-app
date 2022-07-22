@@ -36,7 +36,7 @@ function Login() {
             <input
               placeholder="Digite o seu email"
               type="text"
-              name="email"
+              aria-label="email"
               onChange={({ target }) => setEmail(target.value)}
             />
           </label>
@@ -44,12 +44,17 @@ function Login() {
             <input
               placeholder="Digite a sua senha"
               type="password"
-              name="password"
+              aria-label="password"
               onChange={({ target }) => setPassword(target.value)}
             />
           </label>
           <Link to="/investimentos">
-            <button type="button" disabled={!isButtonDisabled()} aria-label="login-button" onClick={handleClick}>
+            <button
+              type="button"
+              disabled={!isButtonDisabled()}
+              aria-label="login-button"
+              onClick={handleClick}
+            >
               Acessar
             </button>
           </Link>
