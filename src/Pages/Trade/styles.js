@@ -62,6 +62,7 @@ export const Content = styled.div`
   }
 
   form {
+    min-width: 35%;
     width: 35%;
     height: 100%;
     background-color: #fff;
@@ -70,10 +71,11 @@ export const Content = styled.div`
 
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 
     button {
-      width: 80%;
+      width: 100%;
       height: 40px;
       border-radius: 5px;
       border: #909090;
@@ -95,6 +97,7 @@ export const Content = styled.div`
     }
 
     label {
+      width: 100%;
       display: flex;
       flex-direction: column;
       font-weight: bold;
