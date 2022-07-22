@@ -179,8 +179,7 @@ function Trade() {
           </label>
         </form>
         <h2>
-          Saldo atual da sua conta:
-          {balanceInRealBR}
+          {`Saldo em conta: ${balanceInRealBR}`}
         </h2>
       </C.Content>
       <Toaster
