@@ -62,10 +62,13 @@ export const Content = styled.div`
   }
 
   form {
-    min-width: 25%;
-    width: 25%;
-    height: 100%;
+    width: 32%;
+    height: 50%;
     background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 30px;
+    margin-bottom: 25px;
 
     padding: 100px 50px;
 
@@ -75,7 +78,7 @@ export const Content = styled.div`
     align-items: center;
 
     button {
-      width: 100%;
+      width: 80%;
       height: 40px;
       border-radius: 5px;
       border: #909090;
@@ -97,7 +100,7 @@ export const Content = styled.div`
     }
 
     label {
-      width: 100%;
+      width: 80%;
       display: flex;
       flex-direction: column;
       font-weight: bold;

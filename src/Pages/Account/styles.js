@@ -29,7 +29,7 @@ export const Content = styled.form`
   align-items: center;
 
   button {
-    width: 93%;
+    width: 80%;
     height: 40px;
     border-radius: 5px;
     border: #909090;
@@ -58,6 +58,7 @@ export const Content = styled.form`
     display: flex;
     flex-direction: column;
     font-weight: bold;
+    width: 80%;
 
     input {
       width: 100%;
