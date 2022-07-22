@@ -45,7 +45,7 @@ function Login() {
         <form>
           <label htmlFor="email">
             <input
-              placeholder="Digite o seu email"
+              placeholder="Insira um email válido"
               type="text"
               aria-label="email"
               onChange={({ target }) => setEmail(target.value)}
@@ -54,7 +54,7 @@ function Login() {
           </label>
           <label htmlFor="email">
             <input
-              placeholder="Digite a sua senha"
+              placeholder="Insira a sua senha (mín 8 caracteres)"
               type="password"
               aria-label="password"
               onChange={({ target }) => setPassword(target.value)}
