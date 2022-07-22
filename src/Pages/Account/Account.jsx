@@ -21,6 +21,7 @@ function Account() {
     setInputValue('');
   };
 
+  const checkInputValue = inputValue === 0 || inputValue === '';
   const disableWithdrawButton = balance <= 0 || inputValue > balance;
 
   const balanceInRealBR = balance.toLocaleString('pt-br', {
@@ -49,11 +50,12 @@ function Account() {
           aria-label="deposit-button"
           onClick={depositHandleClick}
           className="balance-movements-button1"
+          disabled={checkInputValue}
         >
           Depositar
         </button>
         <button
-          disabled={!!disableWithdrawButton}
+          disabled={disableWithdrawButton || checkInputValue}
           type="button"
           aria-label="withdraw-button"
           onClick={withdrawHandleClick}
