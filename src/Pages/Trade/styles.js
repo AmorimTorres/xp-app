@@ -62,8 +62,8 @@ export const Content = styled.div`
   }
 
   form {
-    min-width: 35%;
-    width: 35%;
+    min-width: 25%;
+    width: 25%;
     height: 100%;
     background-color: #fff;
 

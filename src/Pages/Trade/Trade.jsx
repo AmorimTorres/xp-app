@@ -18,8 +18,8 @@ function Trade() {
   const dispatch = useDispatch();
   const { share } = useParams();
 
-  const [buyInputValue, setBuyInputValue] = useState(0);
-  const [sellInputValue, setSellInputValue] = useState(0);
+  const [buyInputValue, setBuyInputValue] = useState('');
+  const [sellInputValue, setSellInputValue] = useState('');
 
   const allShares = useSelector(({ stockData }) => stockData.shares);
   const portifolioShares = useSelector(({ user }) => user.shares);
