@@ -10,8 +10,6 @@ import logo from '../../Images/logoXp.png';
 function Login() {
   const date = new Date().toLocaleString();
 
-  // const dateBR = date.toLocaleDateString();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

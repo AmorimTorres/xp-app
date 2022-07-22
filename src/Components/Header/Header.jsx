@@ -5,6 +5,7 @@ import Container from './styles';
 
 function Header() {
   const userEmail = useSelector(({ user }) => user.email);
+  const user = localStorage.getItem('User');
 
   return (
     <Container>
@@ -13,8 +14,7 @@ function Header() {
         <NavLink to="/conta">Conta</NavLink>
       </nav>
       <h3>
-        Usuário:
-        {userEmail}
+        {`Usuário: ${user || userEmail}`}
       </h3>
     </Container>
   );
