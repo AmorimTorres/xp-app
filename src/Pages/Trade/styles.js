@@ -77,6 +77,12 @@ export const Content = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    h3 {
+      margin-bottom: 20px;
+      font-weight: 400;
+
+    }
+
     button {
       width: 80%;
       height: 40px;

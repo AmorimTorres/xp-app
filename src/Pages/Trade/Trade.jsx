@@ -31,6 +31,18 @@ function Trade() {
   });
 
   const getSelectedShareInfo = allShares.filter((item) => item.ticker === share);
+  const totalBuyValue = buyInputValue * getSelectedShareInfo[0].stockPrice;
+  const totalSellValue = sellInputValue * getSelectedShareInfo[0].stockPrice;
+
+  const totalSellValueBRL = totalSellValue.toLocaleString('pt-br', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+
+  const totalBuyValueBRL = totalBuyValue.toLocaleString('pt-br', {
+    style: 'currency',
+    currency: 'BRL',
+  });
 
   const notify = (status) => {
     switch (status) {
@@ -38,16 +50,16 @@ function Trade() {
         toast.error('Verifique o saldo da sua conta');
         break;
       case 'error2':
-        toast.error(`Verifique a quantidade de açõe ${share} disponíveis no mercado`);
+        toast.error(`Verifique a quantidade de ações ${share} disponíveis no mercado`);
         break;
-      case 'noSharesQttonPortifolio':
+      case 'error3':
         toast.error(`Verifique a quantidade de ações ${share} disponíveis na sua carteira`);
         break;
       case 'sellSuccess':
-        toast.success(`Venda de ${sellInputValue} ações ${share} realizada com sucesso`);
+        toast.success(`Venda de ${sellInputValue} ações ${share}, no valor total de ${totalSellValueBRL} realizada com sucesso`);
         break;
       case 'buySuccess':
-        toast.success(`Compra de ${buyInputValue} ações ${share} realizada com sucesso`);
+        toast.success(`Compra de ${buyInputValue} ações ${share}, no valor total de ${totalBuyValueBRL} realizada com sucesso`);
         break;
       default:
         toast('Qualquer dúvida, faça contato com o nosso time de experts');
@@ -71,7 +83,6 @@ function Trade() {
 
   const buyHandleClick = () => {
     const marketShare = allShares.filter((item) => item.ticker === share);
-    const totalBuyValue = buyInputValue * getSelectedShareInfo[0].stockPrice;
     if (balance < totalBuyValue) {
       notify('error');
     } else if (+buyInputValue > +marketShare[0].quantity) {
@@ -86,24 +97,31 @@ function Trade() {
   };
 
   const sellHandleClick = () => {
-    const totalValue = sellInputValue * getSelectedShareInfo[0].stockPrice;
     const sharesInPortifolio = portifolioShares.filter((item) => item.ticker === share);
     if (sellInputValue > sharesInPortifolio[0].quantity) {
-      notify('noSharesQttonPortifolio');
+      notify('error3');
     } else if (+sellInputValue === +sharesInPortifolio[0].quantity) {
       dispatch(deleteShare(sharePayload));
-      dispatch(increaseBalance(totalValue));
+      dispatch(increaseBalance(totalSellValue));
       dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
       setSellInputValue('');
       notify('sellSuccess');
     } else {
       dispatch(removePurchasedShares(sharePayload));
-      dispatch(increaseBalance(totalValue));
+      dispatch(increaseBalance(totalSellValue));
       dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
       setSellInputValue('');
       notify('sellSuccess');
     }
   };
+
+  let totalTransations;
+
+  if (buyInputValue > 0 && buyInputValue !== '') {
+    totalTransations = `O valor total da sua compra é de: ${totalBuyValueBRL}`;
+  } if (sellInputValue > 0 && sellInputValue !== '') {
+    totalTransations = `O valor total da sua venda é de: ${totalSellValueBRL}`;
+  }
 
   return (
     <C.Container>
@@ -143,6 +161,9 @@ function Trade() {
           </tbody>
         </table>
         <form>
+          <h3>
+            {totalTransations}
+          </h3>
           <button
             type="button"
             aria-label="buy-button"
@@ -185,11 +206,12 @@ function Trade() {
       <Toaster
         toastOptions={{
           success: {
+            duration: 4000,
             style: {
-              background: '#058700',
-              color: '#fff',
+              background: '#fff',
+              color: '#000',
               fontWeight: 'bold',
-              border: '1px solid #fff',
+              border: '1px solid #058700',
               transition: 'all 0.2s',
               width: '20rem',
               padding: '0.7rem',
@@ -197,10 +219,10 @@ function Trade() {
           },
           error: {
             style: {
-              background: '#ff0000',
-              color: '#fff',
+              background: '#fff',
+              color: '#000',
               fontWeight: 'bold',
-              border: '1px solid #fff',
+              border: '1px solid #ff0000',
               transition: 'all 0.2s',
               width: '20rem',
               padding: '0.7rem',
