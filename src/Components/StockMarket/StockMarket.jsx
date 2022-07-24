@@ -9,7 +9,7 @@ function MarketShares() {
 
   return (
     <C.Container>
-      <h1> Disponíveis para Comprar </h1>
+      <h1> Disponíveis para comprar </h1>
       <C.Table>
         <thead>
           <tr>
