@@ -16,13 +16,13 @@ import * as C from './styles';
 
 function Trade() {
   const dispatch = useDispatch();
-  const { share } = useParams();
+  const { share: stock } = useParams();
 
   const [buyInputValue, setBuyInputValue] = useState('');
   const [sellInputValue, setSellInputValue] = useState('');
 
-  const allShares = useSelector(({ stockData }) => stockData.shares);
-  const portifolioShares = useSelector(({ user }) => user.shares);
+  const allStocks = useSelector(({ stockData }) => stockData.shares);
+  const myPortfolio = useSelector(({ user }) => user.shares);
   const balance = useSelector(({ user }) => user.balance);
 
   const balanceInRealBR = balance.toLocaleString('pt-br', {
@@ -30,9 +30,9 @@ function Trade() {
     currency: 'BRL',
   });
 
-  const getSelectedShareInfo = allShares.filter((item) => item.ticker === share);
-  const totalBuyValue = buyInputValue * getSelectedShareInfo[0].stockPrice;
-  const totalSellValue = sellInputValue * getSelectedShareInfo[0].stockPrice;
+  const getSelectedStockInfo = allStocks.filter((item) => item.ticker === stock);
+  const totalBuyValue = buyInputValue * getSelectedStockInfo[0].stockPrice;
+  const totalSellValue = sellInputValue * getSelectedStockInfo[0].stockPrice;
 
   const totalSellValueBRL = totalSellValue.toLocaleString('pt-br', {
     style: 'currency',
@@ -50,16 +50,16 @@ function Trade() {
         toast.error('Verifique o saldo da sua conta');
         break;
       case 'error2':
-        toast.error(`Verifique a quantidade de ações ${share} disponíveis no mercado`);
+        toast.error(`Verifique a quantidade de ações ${stock} disponíveis no mercado`);
         break;
       case 'error3':
-        toast.error(`Verifique a quantidade de ações ${share} disponíveis na sua carteira`);
+        toast.error(`Verifique a quantidade de ações ${stock} disponíveis na sua carteira`);
         break;
       case 'sellSuccess':
-        toast.success(`Venda de ${sellInputValue} ações ${share}, no valor total de ${totalSellValueBRL} realizada com sucesso`);
+        toast.success(`Venda de ${sellInputValue} ações ${stock}, no valor total de ${totalSellValueBRL} realizada com sucesso`);
         break;
       case 'buySuccess':
-        toast.success(`Compra de ${buyInputValue} ações ${share}, no valor total de ${totalBuyValueBRL} realizada com sucesso`);
+        toast.success(`Compra de ${buyInputValue} ações ${stock}, no valor total de ${totalBuyValueBRL} realizada com sucesso`);
         break;
       default:
         toast('Qualquer dúvida, faça contato com o nosso time de experts');
@@ -69,47 +69,46 @@ function Trade() {
   const checkBuyInputValue = +buyInputValue === 0 || buyInputValue === '';
   const checkSellInputValue = +sellInputValue === 0 || sellInputValue === '';
 
-  const checkSharesPortifolio = portifolioShares
+  const checkStocksPortfolio = myPortfolio
     .map((stockData) => stockData.ticker)
-    .some((item) => item === getSelectedShareInfo[0].ticker);
+    .some((item) => item === getSelectedStockInfo[0].ticker);
 
-  const sharePayload = {
-    id: getSelectedShareInfo[0].id,
-    company: getSelectedShareInfo[0].company,
-    ticker: getSelectedShareInfo[0].ticker,
-    stockPrice: getSelectedShareInfo[0].stockPrice,
+  const actionPayload = {
+    id: getSelectedStockInfo[0].id,
+    company: getSelectedStockInfo[0].company,
+    ticker: getSelectedStockInfo[0].ticker,
+    stockPrice: getSelectedStockInfo[0].stockPrice,
     quantity: +buyInputValue,
   };
 
   const buyHandleClick = () => {
-    const marketShare = allShares.filter((item) => item.ticker === share);
     if (balance < totalBuyValue) {
       notify('error');
-    } else if (+buyInputValue > +marketShare[0].quantity) {
+    } else if (+buyInputValue > +getSelectedStockInfo[0].quantity) {
       notify('error2');
     } else {
       dispatch(decreaseBalance(totalBuyValue));
-      dispatch(insertPurchasedShares(sharePayload));
-      dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getSelectedShareInfo[0].id - 1 }));
+      dispatch(insertPurchasedShares(actionPayload));
+      dispatch(decreaseMarketShareQtt({ value: buyInputValue, id: getSelectedStockInfo[0].id - 1 }));
       setBuyInputValue('');
       notify('buySuccess');
     }
   };
 
   const sellHandleClick = () => {
-    const sharesInPortifolio = portifolioShares.filter((item) => item.ticker === share);
-    if (sellInputValue > sharesInPortifolio[0].quantity) {
+    const stocksInPortfolio = myPortfolio.filter((item) => item.ticker === stock);
+    if (sellInputValue > stocksInPortfolio[0].quantity) {
       notify('error3');
-    } else if (+sellInputValue === +sharesInPortifolio[0].quantity) {
-      dispatch(deleteShare(sharePayload));
+    } else if (+sellInputValue === +stocksInPortfolio[0].quantity) {
+      dispatch(deleteShare(actionPayload));
       dispatch(increaseBalance(totalSellValue));
-      dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
+      dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedStockInfo[0].id - 1 }));
       setSellInputValue('');
       notify('sellSuccess');
     } else {
-      dispatch(removePurchasedShares(sharePayload));
+      dispatch(removePurchasedShares(actionPayload));
       dispatch(increaseBalance(totalSellValue));
-      dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedShareInfo[0].id - 1 }));
+      dispatch(increaseMarketShareQtt({ value: sellInputValue, id: getSelectedStockInfo[0].id - 1 }));
       setSellInputValue('');
       notify('sellSuccess');
     }
@@ -136,9 +135,9 @@ function Trade() {
             </tr>
           </thead>
           <tbody>
-            {allShares
-            && allShares
-              .filter((item) => item.ticker === share)
+            {allStocks
+            && allStocks
+              .filter((item) => item.ticker === stock)
               .map((item) => (
                 <tr key={item.company}>
                   <td>
@@ -184,7 +183,7 @@ function Trade() {
           <button
             type="button"
             aria-label="sell-button"
-            disabled={!checkSharesPortifolio || checkSellInputValue}
+            disabled={!checkStocksPortfolio || checkSellInputValue}
             onClick={sellHandleClick}
           >
             VENDER
