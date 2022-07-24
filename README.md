@@ -15,6 +15,7 @@ Após decidir quais ferramentas eu iria utilizar, dei início à configuração 
 * Refatoração ao longo de todo o desenvolvimento da aplicação
 * Intervalos para estilização das páginas e componentes
 * Inserção de alertas para melhor experiência do usuário
+* Configurar localStorage e opção de logout do usuário
 * Ajustes finos
 
 Foi um processo de muitas descobertas e aprendizados! Durante o desenvolvimento tive a certeza: quero ser um desenvolvedor Front-end, de preferência na XPInc - empresa a qual ganhou minha admiração ao longo da jornada de estudos na Trybe :)
@@ -22,7 +23,7 @@ Foi um processo de muitas descobertas e aprendizados! Durante o desenvolvimento 
 Fiquem à vontade. Espero que gostem!
 
 ## A aplicação está on-line no link:
-exemplo link
+https://xp-app.netlify.app/
 
 ## Caso você queira rodar o projeto na sua maquina, siga o passo a passo:
 
