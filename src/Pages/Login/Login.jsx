@@ -18,8 +18,6 @@ function Login() {
   useEffect(() => {
     const user = localStorage.getItem('User');
     const userIsLoged = localStorage.getItem('isLoged');
-    console.log('user: ', user);
-    console.log('userIsLoged: ', userIsLoged);
     if (user && userIsLoged === true) {
       setEmail(user);
     }
@@ -44,6 +42,15 @@ function Login() {
 
   return (
     <C.Container>
+      <C.Aside>
+        <img src={logo} alt="logo-xp-investimentos" />
+        <h2>
+          Há 20 anos transformando o mercado financeiro
+          {' '}
+          <br />
+          para melhorar a vida das pessoas
+        </h2>
+      </C.Aside>
       <C.Content>
         <h1>Login</h1>
         <form>
@@ -76,14 +83,6 @@ function Login() {
           </Link>
         </form>
       </C.Content>
-      <C.Aside>
-        <img src={logo} alt="logo-xp-investimentos" />
-        <h2>
-          Há 20 anos transformando
-          o mercado financeiro para melhorar
-          a vida das pessoas.
-        </h2>
-      </C.Aside>
     </C.Container>
   );
 }
