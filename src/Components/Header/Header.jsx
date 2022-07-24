@@ -11,7 +11,7 @@ function Header() {
     <Container>
       <nav>
         <NavLink to="/investimentos">Investimentos</NavLink>
-        <NavLink to="/conta">Conta</NavLink>
+        <NavLink to="/conta">Conta bancária</NavLink>
       </nav>
       <h3>
         {`Usuário: ${user || userEmail}`}
