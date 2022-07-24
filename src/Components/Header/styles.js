@@ -3,13 +3,13 @@ import styled from 'styled-components';
 const Container = styled.div`
   background-color: #191919;
   width: 100%;
-  height: 8vh;
+  height: 10vh;
   display: flex;
 
   justify-content: space-between;
   align-items: center;
-  padding-left: 150px;
-  padding-right: 150px;
+  padding-left: 50px;
+  padding-right: 50px;
 
   nav {
     a {
@@ -30,6 +30,12 @@ const Container = styled.div`
   }
 
   h3 {
+    color: #fbcf23;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
     color: #fbcf23;
   }
 `;

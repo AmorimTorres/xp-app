@@ -17,7 +17,10 @@ function Login() {
 
   useEffect(() => {
     const user = localStorage.getItem('User');
-    if (user) {
+    const userIsLoged = localStorage.getItem('isLoged');
+    console.log('user: ', user);
+    console.log('userIsLoged: ', userIsLoged);
+    if (user && userIsLoged === true) {
       setEmail(user);
     }
   }, []);
@@ -36,6 +39,7 @@ function Login() {
     dispatch(changeEmail(email));
     localStorage.setItem('DateAndHour', date);
     localStorage.setItem('User', email);
+    localStorage.setItem('isLoged', true);
   };
 
   return (
