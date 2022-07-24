@@ -18,7 +18,7 @@ function Login() {
   useEffect(() => {
     const user = localStorage.getItem('User');
     const userIsLoged = localStorage.getItem('isLoged');
-    if (user && userIsLoged === true) {
+    if (user && userIsLoged) {
       setEmail(user);
     }
   }, []);
