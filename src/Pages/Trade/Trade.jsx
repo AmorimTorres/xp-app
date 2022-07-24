@@ -173,7 +173,7 @@ function Trade() {
           </button>
           <label htmlFor="input-quantity">
             <input
-              type="text"
+              type="number"
               aria-label="buy-input"
               value={buyInputValue}
               onChange={({ target }) => setBuyInputValue(target.value)}
@@ -190,7 +190,7 @@ function Trade() {
           </button>
           <label htmlFor="input-quantity">
             <input
-              type="text"
+              type="number"
               aria-label="sell-input"
               value={sellInputValue}
               onChange={({ target }) => setSellInputValue(target.value)}
